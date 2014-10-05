@@ -19,4 +19,14 @@
     <servlet-name>Formulario</servlet-name>
     <url-pattern>/Formulario</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AtivaCadastro</display-name>
+    <servlet-name>AtivaCadastro</servlet-name>
+    <servlet-class>com.cadastro.servelets.AtivaCadastro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AtivaCadastro</servlet-name>
+    <url-pattern>/confirma-cadastro</url-pattern>
+  </servlet-mapping>
 </web-app>

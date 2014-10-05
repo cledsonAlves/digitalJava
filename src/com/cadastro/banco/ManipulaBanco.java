@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.cadastro.logica.Criptografia;
 import com.cadastro.objetos.Usuario;
 
 /**
@@ -20,20 +21,48 @@ public class ManipulaBanco {
 
 	public ManipulaBanco() {
 		banco = new Banco();
+		conexao = banco.getConexao();
+	}
+
+	// método verifica email
+	public boolean buscaRegistro(String email) {
+		String sql = "Select * FROM USUARIOS WHERE EMAIL= '" + email + "';";
+		conexao = banco.getConexao();
+		try {
+			stmt = conexao.createStatement();
+			result = stmt.executeQuery(sql);
+			if (result.next()) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 	// método cadastra usuario
 	public boolean cadastraUsuario(Usuario usuario) {
-		 
+
+		// criptografa a senha e gera o token(c/email) para ativar registro
+		String novaSenha = "";
+		String token = "";
+		try {
+			novaSenha = Criptografia.criptografa(usuario.getSenha());
+			token = Criptografia.criptografa(usuario.getEmail());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 		conexao = banco.getConexao();
-		String sql = "INSERT INTO USUARIO VALUES ('" + usuario.getEmail()
+		String sql = "INSERT INTO USUARIOS VALUES ('" + usuario.getEmail()
 				+ "','" + usuario.getNome() + "','" + usuario.getSobrenome()
-				+ "','" + usuario.getSenha() + "');";
+				+ "','" + novaSenha + "','" + token + "','0');";
 		try {
 			stmt = conexao.createStatement();
 			stmt.execute(sql);
-
-	        conexao.commit();
 			return true;
 
 		} catch (SQLException e) {
@@ -43,26 +72,47 @@ public class ManipulaBanco {
 
 	}
 
-	// método teste interno
-	public void consulta() {
-		 banco = new Banco();
-		String sql = "SELECT * FROM USUARIOS";
+	// Método busca token
+	public String buscaToken(String email) {
+		String sql = "SELECT TOKEN FROM USUARIOS WHERE EMAIL = '" + email + "'";
+		String token = "";
 		conexao = banco.getConexao();
 		try {
-
 			stmt = conexao.createStatement();
 			result = stmt.executeQuery(sql);
-			while (result.next()) {
-				System.out.println(result.getString(1) + " "
-						+ result.getString(2));
+			if (result.next()) {
+				token = result.getString(1);
+
 			}
-			// fechando a conexão
-			stmt.close();
-			result.close();
-			conexao.close();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		}
+		return token;
+
+	}
+
+	// Método ativa registro
+	public boolean ativaRegistro(String token) {
+		String sql = "UPDATE USUARIOS SET ATIVO = 1 WHERE TOKEN = '" + token
+				+ "'";
+		
+		try {
+			stmt = conexao.createStatement();
+			stmt.execute(sql);
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+
+		}
+
+	}
+
+	// Metodo deleta registro
+	public void deletaRegistro(String id) {
 
 	}
 
