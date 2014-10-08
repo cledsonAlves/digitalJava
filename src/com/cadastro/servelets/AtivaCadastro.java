@@ -3,6 +3,7 @@ package com.cadastro.servelets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,27 +20,34 @@ public class AtivaCadastro extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// teste de cadastro
+	
 		PrintWriter out = response.getWriter();
 		
 		ManipulaBanco mb = new ManipulaBanco();
 		String token = request.getParameter("token");
+		
+		
 		if(mb.ativaRegistro(token)){
 			response.setContentType("text/html");
+
 			
-			out.print("</html>");
-			
-			// redireciona para pagina de cadastros ...
+			// redireciona para pagina de sucesso ...
 			String pagina = "./sucess-ativacao.jsp";
-			response.sendRedirect(pagina); 
-			out.close(); 
+			RequestDispatcher dis = request.getRequestDispatcher(pagina);
+			dis.forward(request, response);
+
 			
-		}else {
-			out.println("<html><body>");
-			out.println("<br>Não foi possível ativar seu cadastro !");	
 		}
+		// cadastro já foi efetivado
+		else {
+			out.println("<script>");  
+	        out.println("alert('Este token não é válido! Registro já foi ativado ou token expirou');");      
+	        out.println("</script>");
+	       
+					
+		}
+		 out.close();
 	
-		
 		    
 	}
 

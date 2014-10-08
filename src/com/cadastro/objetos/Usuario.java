@@ -8,8 +8,19 @@ public class Usuario {
 	private String senha;
 	private String confSenha;
 	private String token;
+	private String ativo;
 	
 	
+	
+	
+
+	public String getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(String ativo) {
+		this.ativo = ativo;
+	}
 
 	public String getToken() {
 		return token;

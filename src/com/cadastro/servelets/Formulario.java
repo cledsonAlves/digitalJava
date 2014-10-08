@@ -1,10 +1,9 @@
 package com.cadastro.servelets;
 
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,34 +35,48 @@ public class Formulario extends HttpServlet {
 		usuario.setEmail(request.getParameter("email"));
 		usuario.setSenha(request.getParameter("senha"));
 		usuario.setConfSenha(request.getParameter("confSenha"));
-		
-	
-		
-		// Valida  os dados para cadastro
+
+		// Valida os dados para cadastro
 		ValidaCadastro valida = new ValidaCadastro(usuario);
 		String msg = valida.validaUsuario();
-		
-		// teste de cadastro
-		PrintWriter out = response.getWriter();
-		out.println(msg);
-		
-		
 		response.setContentType("text/html");
-		
-		out.print("</html>");
-		
-		// redireciona para pagina de cadastros ...
-		String pagina = "./sucess.jsp";
-		response.sendRedirect(pagina); 
-		out.close(); 
 
+		if (msg.equals("Usuario cadastrado com sucesso!")) {
+			String pagina = "./sucess.jsp";
+			request.setAttribute("msg","sucess");
+			RequestDispatcher dis = request.getRequestDispatcher(pagina);
+			dis.forward(request, response);
 		
-		out.println("<br>Bem vindo Sr(a) , " + usuario.getNome());
-		out.println("<br>foi enviado um e-mail de confirmação para  : "
-				+ usuario.getEmail());
-		out.println("<br><a href='./index.html'>Voltar</a></center>");
 
-		
+		}
+
+		else {
+
+			if (msg.equals("Erro! Nome informado não é um nome valido !")) {
+				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.nome.focus();'>");
+
+			} else if (msg.equals("Erro! Sobrenome informado não é um nome valido !")) {
+				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.sobrenome.focus();'>");
+
+			} else if (msg.equals("Erro! O E-mail informado é inválido.")) {
+				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.email.focus();'>");
+
+			} else if (msg.equals("Erro. As senhas informadas não conferem !")) {
+				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.senha.focus();'>");
+
+			}else if (msg.equals("Erro! Este e-mail já esta cadastrado no sistema!")) {
+				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.email.focus();'>");
+
+			}
+			request.setAttribute("msgErro",msg);
+			request.setAttribute("nome", usuario.getNome());
+			request.setAttribute("sobrenome", usuario.getSobrenome());
+			request.setAttribute("email", usuario.getEmail());
+
+			RequestDispatcher dis = request.getRequestDispatcher("./");
+			dis.forward(request, response);
+
+		}
 
 	}
 

@@ -1,6 +1,9 @@
 package com.cadastro.banco;
 
-//Classes necessárias para uso de Banco de dados // 
+/**
+ * Para ultizar outro banco, somente precisa modificar a url  e colocar o drive.jar na pasta web-inf/lib 
+ */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,8 +12,9 @@ public class Banco {
 	private String serverName = "localhost";
 	private String database = "CADASTRO";
 	private String url = "jdbc:mysql://" + serverName + "/" + database;
-	private String username = "cledson";
-	private String password = "Vwmq7&76";
+	private String username = "root";
+	//private String password = "Vwmq7&76";
+	private String password = "";
 	private String driverName = "com.mysql.jdbc.Driver";
 
 	public Connection getConexao() {
@@ -30,8 +34,6 @@ public class Banco {
 		}
 
 	}
-	public static void main(String[] args) {
-		new Banco().getConexao();
-	}
+
 
 }

@@ -21,14 +21,18 @@ public class ValidaCadastro {
 	public String validaUsuario() {
 		String msg = "";
 		if (validaEmail(usuario.getEmail()) == false) {
-			msg = " E-mail Inválido";
+			msg = "Erro! O E-mail informado é inválido.";
 		} else if (validaSenha(usuario.getSenha(), usuario.getConfSenha()) == false) {
-			msg = "As senhas informadas não conferem !";
+			msg = "Erro. As senhas informadas não conferem !";
 		} else if (validaNome(usuario.getNome()) == false) {
-			msg = "Nome informado não é valido !";
-		} else if (verificaEmail(usuario.getEmail())) {
+			msg = "Erro! Nome informado não é um nome valido !";
+		} 
+		else if (validaNome(usuario.getSobrenome())== false){
+			msg = "Erro! Sobrenome informado não é um nome valido !";
+		}
+		else if (verificaEmail(usuario.getEmail())) {
 			// verifica se o e-mail já existe no banco
-			msg = "E-mail informado não está disponivel!";
+			msg = "Erro! Este e-mail já esta cadastrado no sistema!";
 		} else {
 			// cadastra o usuario no banco
 

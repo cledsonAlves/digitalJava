@@ -1,32 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>Cadastro</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>Formulario</display-name>
-    <servlet-name>Formulario</servlet-name>
-    <servlet-class>com.cadastro.servelets.Formulario</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Formulario</servlet-name>
-    <url-pattern>/Formulario</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>AtivaCadastro</display-name>
-    <servlet-name>AtivaCadastro</servlet-name>
-    <servlet-class>com.cadastro.servelets.AtivaCadastro</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AtivaCadastro</servlet-name>
-    <url-pattern>/confirma-cadastro</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>Cadastro</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<description></description>
+		<display-name>Formulario</display-name>
+		<servlet-name>Formulario</servlet-name>
+		<servlet-class>com.cadastro.servelets.Formulario</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Formulario</servlet-name>
+		<url-pattern>/Formulario</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>AtivaCadastro</display-name>
+		<servlet-name>AtivaCadastro</servlet-name>
+		<servlet-class>com.cadastro.servelets.AtivaCadastro</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AtivaCadastro</servlet-name>
+		<url-pattern>/confirma-cadastro</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>Report</display-name>
+		<servlet-name>Report</servlet-name>
+		<servlet-class>com.cadastro.servelets.Report</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Report</servlet-name>
+		<url-pattern>/Report</url-pattern>
+	</servlet-mapping>
+
+	<security-constraint>
+		<display-name>Prevenindo acesso direto</display-name>
+		<web-resource-collection>
+			<web-resource-name>Raw-JSF-JSP-Pages</web-resource-name>
+			<url-pattern>/sucess.jsp</url-pattern>
+			<url-pattern>/sucess-ativacao.jsp</url-pattern>
+			<url-pattern>/report.jsp</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<description>Sem regras, apenas bloqueio acesso direto aos JSPs</description>
+		</auth-constraint>
+	</security-constraint>
+
 </web-app>
