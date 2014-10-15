@@ -1,0 +1,3 @@
+Header - Barra azul escuro: #6B7D87
+Background (gradiente radial): de azul (bordas) #889FAC para o azul (miolo) #A7C4D2
+Fonte: Verdana

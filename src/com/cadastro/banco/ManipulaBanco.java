@@ -40,7 +40,7 @@ public class ManipulaBanco {
 			e.printStackTrace();
 			return false;
 		} finally {
-			fechaConexao(conexao, stmt, result);
+			//fechaConexao(conexao, stmt, result);
 		}
 
 	}
@@ -72,7 +72,7 @@ public class ManipulaBanco {
 			e.printStackTrace();
 			return false;
 		} finally {
-			fechaConexao(conexao, stmt);
+			//fechaConexao(conexao, stmt);
 		}
 
 	}
@@ -96,7 +96,7 @@ public class ManipulaBanco {
 			e.printStackTrace();
 
 		} finally {
-			fechaConexao(conexao, stmt, result);
+			//fechaConexao(conexao, stmt, result);
 		}
 		return token;
 
@@ -119,7 +119,7 @@ public class ManipulaBanco {
 				e.printStackTrace();
 
 			} finally {
-				fechaConexao(conexao, stmt);
+				//fechaConexao(conexao, stmt);
 			}
 
 		} else {
@@ -152,7 +152,7 @@ public class ManipulaBanco {
 			e.printStackTrace();
 			return false;
 		} finally {
-			fechaConexao(conexao, stmt, result);
+			//fechaConexao(conexao, stmt, result);
 		}
 
 	}
@@ -184,7 +184,7 @@ public class ManipulaBanco {
 			return null;
 
 		} finally {
-			fechaConexao(conexao, stmt, result);
+			//fechaConexao(conexao, stmt, result);
 		}
 
 	}
@@ -203,7 +203,7 @@ public class ManipulaBanco {
 			e.printStackTrace();
 			return false;
 		} finally {
-			fechaConexao(conexao, stmt);
+		//	fechaConexao(conexao, stmt);
 		}
 
 	}

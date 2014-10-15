@@ -48,8 +48,8 @@
 		<web-resource-collection>
 			<web-resource-name>Raw-JSF-JSP-Pages</web-resource-name>
 			<url-pattern>/sucess.jsp</url-pattern>
-			<url-pattern>/sucess-ativacao.jsp</url-pattern>
 			<url-pattern>/report.jsp</url-pattern>
+			<url-pattern>/sucess-ativacao.jsp</url-pattern>
 			<http-method>GET</http-method>
 		</web-resource-collection>
 		<auth-constraint>

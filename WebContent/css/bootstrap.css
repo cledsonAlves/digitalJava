@@ -910,7 +910,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #428bca;
+  color: #F4F6F8;
   text-decoration: none;
 }
 a:hover,
@@ -2852,8 +2852,9 @@ fieldset[disabled] .btn-primary.active {
 }
 .btn-success {
   color: #fff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
+  background-color: rgb(169, 206, 71);
+  border-color: rgb(169, 206, 71);
+  font-weight:bold;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -2933,16 +2934,17 @@ fieldset[disabled] .btn-info.active {
   background-color: #fff;
 }
 .btn-warning {
-  color: #fff;
-  background-color: #f0ad4e;
-  border-color: #eea236;
+  color: #000;
+  background-color: rgb(255, 204, 42);
+  border-color: rgb(255, 204, 42);
+  font-weight:bold;
 }
 .btn-warning:hover,
 .btn-warning:focus,
 .btn-warning:active,
 .btn-warning.active,
 .open > .dropdown-toggle.btn-warning {
-  color: #fff;
+  color: #000;
   background-color: #ec971f;
   border-color: #d58512;
 }
@@ -3769,16 +3771,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   min-height: 50px;
+  
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
   .navbar {
     border-radius: 4px;
+	
   }
 }
 @media (min-width: 768px) {
-  .navbar-header {
+  .navbar-header {  
     float: left;
   }
 }
@@ -3879,9 +3883,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  height: 50px;
+  height: 150px;
   padding: 15px 15px;
-  font-size: 18px;
+  font-size: 118px;
   line-height: 20px;
 }
 .navbar-brand:hover,
@@ -4044,9 +4048,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar-form {
     width: auto;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-right: 0;
+    padding-top: 10;
+    padding-bottom: 10;
+    margin-right: 10;
     margin-left: 0;
     border: 0;
     -webkit-box-shadow: none;
@@ -4092,8 +4096,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
-  border-color: #e7e7e7;
+  background-color: #6B7D87;
+  /*border-color: #e7e7e7;*/
 }
 .navbar-default .navbar-brand {
   color: #777;
@@ -4138,7 +4142,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #e7e7e7;
+  /*border-color: #e7e7e7;*/
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,

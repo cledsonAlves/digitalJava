@@ -46,18 +46,16 @@ public class Email {
 
 			    email.setFrom( "clsddd@hotmail.com");
 			    email.setDebug(true);
-			    email.setSubject( "Bem vindo  "+usuario.getNome()+" : Sistema de Cadastro ");
+			    email.setSubject( "Bem vindo  "+usuario.getNome()+" : Equipe Recruit ");
 			    
 			    //mensagem
 			    StringBuilder builder = new StringBuilder();
-			    builder.append("<h1>Bem Vindo "+usuario.getNome()+",</h1>");
-			    builder.append("<p>Obrigado por se conectar conosco. <b>Seu cadastramento foi efetuado com sucesso!</b><br> Para confirmar seu registro acesse o link abaixo para efetivar seu cadastramento.</p>");
-			    builder.append("<a href='http://localhost:8090/Cadastro/confirma-cadastro?token="+usuario.getToken()+"'>Clique aqui para confirmar seu cadastramento</a> <br> ");
-			    builder.append("<p><br>Se você não solicitou o cadastramento, clique no link abaixo para nos informar :</p>");
-			    builder.append("<a href='http://localhost:8090/Cadastro/Report?token="+usuario.getToken()+"'>Clique aqui para informar um cadastramento indevido</a> <br> ");
-			    builder.append("<p><br>Mais uma vez, obrigado por se conectar!</p>");
-			    builder.append("<p><b>Sistema de Cadastro</b><br></p>");
-			    //builder.append("<img src=\"http://www.botecodigital.info/wp-content/themes/boteco/img/logo.png\">");
+			    builder.append("<p><h1><b><center><font color ='#89A0AD'>Bem-Vindo, "+usuario.getNome()+",</font></b></h1></p>");
+			    builder.append("<p><h1><center>Agradecemos o seu interesse em se cadastrar no <br>Banco de Talentos RecruIT.</b><br></p>");
+			    builder.append("<p><h1><b><center>Você esta a um passo do sucesso profissional :</b><br>Para confirmar o seu cadastro, <a href='http://www.desagil.com.br:8080/Cadastro/confirma-cadastro?token="+usuario.getToken()+"'><u>Clique aqui.</u></a></b></h1></p>");	    
+			    builder.append("<p>Se você não solicitou o cadastramento, <a href='http://www.desagil.com.br:8080/Cadastro/Report?token="+usuario.getToken()+"'><u>Clique aqui.</u></a>  :</p>");	    
+			    builder.append("<p><h3><center>Até mais!<br><font color='#89A0AD'>Equipe Recruit.</font></b></h3></p>");		 
+			    builder.append("<img src=\"http://www.desagil.com.br/img/email.png\">");
 			    
 			    email.addTo(usuario.getEmail());
 			    email.setHtmlMsg( builder.toString() );

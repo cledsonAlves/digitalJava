@@ -1,47 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Recrutamento Digital</title>
 
 <!-- Incluindo o CSS do Bootstrap -->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link href="css/bootstrap.css" rel="stylesheet" media="screen" />
+<!-- Incluindo o jQuery que é requisito do JavaScript do Bootstrap -->
+<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
 <!-- Incluindo o JavaScript do Bootstrap -->
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- Incluindo o JavaScript do Jquery para Validações -->
+<script type="text/javascript" src="js/jquery.validate.js"></script>
 
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastro Indevido</title>
 </head>
 <body>
-
-	<div class="container">
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<a class="navbar-brand">Formulário de Cadastro</a>
-					<ul class="nav navbar-nav">
-					</ul>
-				</div>
-			</div>
-		</div>
-		<br />
-		<div>
-			<legend></legend>
-		</div>
-		<div id="content">
-			<div class="container">
-				<div class="navbar-text navbar-letf"></div>
-				<div class="pager">
-					<h1>Obrigado pelo Contato!</h1>
-					<p>
-						Obrigado por nos informar o cadastro indevido! <br> Seu e-mail já
-						foi removido da nossa base de dados, e nosso suporte recebeu a notificação de cadastramento indevido.
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+             <a class="brand" href="#">
+            <img src="img/logo.png" alt="Digital">
+            </a>
+        </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                   
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="E-mail">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Senha">
+                    </div>
+                    <button type="submit" class="btn btn-success">Entrar</button>
+                    <div class="linkSenha"><a href="#">&nbsp;Esqueceu a sua senha?</a></div>
+                </form>
+            </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="gradiente_fundo">
+	<div class="conteudoRegistro">
+        <h1><br></h1>
+        <p></p>
+        <div>
+         
+        </div>
+        <div>
+        	<h2><strong>Sentiremos a sua falta!</strong></h2>
+            <p><span class="textoRegistro">Seu e-mail foi removido da nossa base de dados.</span></p>
+           
+        </div>
+    </div>
+    <div>
+    </div>
+</div>
 
 </body>
 </html>
