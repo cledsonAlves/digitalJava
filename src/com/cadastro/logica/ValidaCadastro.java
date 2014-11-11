@@ -21,18 +21,18 @@ public class ValidaCadastro {
 	public String validaUsuario() {
 		String msg = "";
 		if (validaEmail(usuario.getEmail()) == false) {
-			msg = "Erro! O E-mail informado é inválido.";
+			msg = "Erro ! O E-mail informado &eacute; inv&aacute;lido.";
 		} else if (validaSenha(usuario.getSenha(), usuario.getConfSenha()) == false) {
-			msg = "Erro. As senhas informadas não conferem !";
+			msg = "Erro ! As senhas informadas n&atilde;o conferem .";
 		} else if (validaNome(usuario.getNome()) == false) {
-			msg = "Erro! Nome informado não é um nome valido !";
+			msg = "Erro! Nome informado n&atilde;o &eacute; um nome valido !";
 		} 
 		else if (validaNome(usuario.getSobrenome())== false){
-			msg = "Erro! Sobrenome informado não é um nome valido !";
+			msg = "Erro ! Sobrenome informado n&atilde;o &eacute; um nome valido !";
 		}
 		else if (verificaEmail(usuario.getEmail())) {
 			// verifica se o e-mail já existe no banco
-			msg = "Erro! Este e-mail já esta cadastrado no sistema!";
+			msg = "Erro ! Este e-mail j&aacute; esta cadastrado no sistema.";
 		} else {
 			// cadastra o usuario no banco
 
@@ -66,7 +66,7 @@ public class ValidaCadastro {
 		return isValido;
 	}
 
-	// Método valida senha e criptografa
+	// Método valida senha 
 	private boolean validaSenha(String senha, String confSenha) {
 		boolean valido = false;
 		if (senha.length() >= 6) {
@@ -91,7 +91,7 @@ public class ValidaCadastro {
 
 	// Método verifica se o e-mail existe no banco
 	private boolean verificaEmail(String email) {
-		if (mb.buscaRegistro(email)) {
+		if (mb.verificaEmail(email)) {
 			return true;
 		} else {
 			return false;

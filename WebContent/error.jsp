@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<div class="navbar navbar-default navbar-fixed-top">
+	<div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -54,23 +54,26 @@
             </div>
     </div>
 </div>
-<div class="clearfix"></div>
-<div class="gradiente_fundo">
-	<div class="conteudoRegistro">
-        <h1><br></h1>
-        <p></p>
-        <div>
-         
-        </div>
-        <div>
-        	<h2><strong>Sentiremos a sua falta!</strong></h2>
-            <p><span class="textoRegistro">Seu e-mail foi removido da nossa base de dados.</span></p>
-           
-        </div>
-    </div>
-    <div>
-    </div>
-</div>
+	<div class="clearfix"></div>
+	<div class="gradiente_fundo">
+		<div class="conteudoRegistro">
+			<h1>
+				<br>
+			</h1>
+			<p></p>
+			<div></div>
+			<div>
+				<h2>Ops! Isso não é nada bom. Algo deu errado ao comunicar com
+					nossos servidores Codigo erro : ${pageContext.errorData.statusCode}</h2>
+				<p>
+					<a href="./"><strong style="text-decoration: underline;">Clique
+							aqui</strong> </a><span class="textoRegistro">para acessar o sistema.</span>
+				</p>
+
+			</div>
+		</div>
+		<div></div>
+	</div>
 
 </body>
 </html>

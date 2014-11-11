@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
 <title>Recrutamento Digital</title>
 
 <!-- Incluindo o CSS do Bootstrap -->
@@ -25,23 +25,31 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-             <a class="brand" href="#">
+             <a class="brand" href="./">
             <img src="img/logo.png" alt="Digital">
             </a>
         </div>
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
-                   
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="E-mail">
+                <form  action="./autentica" name="login" id="login" method="POST" class="navbar-form navbar-right" role="search">
+                   <div class="msgErroLogin">
+                    <span class="label label-danger">${retorno}</span>
+                    
+                    
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Senha">
+                        <input type="email" required="required" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" name="email" value="${emailLogin}" placeholder="E-mail">
                     </div>
+                    
+                    <div class="form-group">
+                        <input required="required" type="password" class="form-control" name="senha" placeholder="Senha">
+                    </div>
+                    
                     <button type="submit" class="btn btn-success">Entrar</button>
-                    <div class="linkSenha"><a href="#">&nbsp;Esqueceu a sua senha?</a></div>
+                    <div class="linkSenha" id= "sienha" >
+                   <a data-toggle="modal"  href="#restore" >Esqueceu a sua senha?</a>
+                    </div>   
                 </form>
             </div>
     </div>
@@ -56,7 +64,7 @@
         </div>
         <div>
         	<h2><strong>Seu e-mail foi cadastrado com sucesso!</strong></h2>
-            <p><a href="#"><u><strong>Clique aqui</strong></u> </a><span class="textoRegistro">para acessar o sistema.</span></p>
+            <p><a href="./"><strong style="text-decoration: underline;">Clique aqui</strong> </a><span class="textoRegistro">para acessar o sistema.</span></p>
            
         </div>
     </div>

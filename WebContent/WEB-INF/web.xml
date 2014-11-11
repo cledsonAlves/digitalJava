@@ -1,60 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>Cadastro</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<description></description>
-		<display-name>Formulario</display-name>
-		<servlet-name>Formulario</servlet-name>
-		<servlet-class>com.cadastro.servelets.Formulario</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Formulario</servlet-name>
-		<url-pattern>/Formulario</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>AtivaCadastro</display-name>
-		<servlet-name>AtivaCadastro</servlet-name>
-		<servlet-class>com.cadastro.servelets.AtivaCadastro</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AtivaCadastro</servlet-name>
-		<url-pattern>/confirma-cadastro</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>Report</display-name>
-		<servlet-name>Report</servlet-name>
-		<servlet-class>com.cadastro.servelets.Report</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Report</servlet-name>
-		<url-pattern>/Report</url-pattern>
-	</servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>Cadastro</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>Formulario</display-name>
+    <servlet-name>Formulario</servlet-name>
+    <servlet-class>com.cadastro.servelets.Formulario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Formulario</servlet-name>
+    <url-pattern>/Formulario</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AtivaCadastro</display-name>
+    <servlet-name>AtivaCadastro</servlet-name>
+    <servlet-class>com.cadastro.servelets.AtivaCadastro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AtivaCadastro</servlet-name>
+    <url-pattern>/confirma-cadastro</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Report</display-name>
+    <servlet-name>Report</servlet-name>
+    <servlet-class>com.cadastro.servelets.Report</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Report</servlet-name>
+    <url-pattern>/Report</url-pattern>
+  </servlet-mapping>
+  <security-constraint>
+    <display-name>Prevenindo acesso direto</display-name>
+    <web-resource-collection>
+      <web-resource-name>Raw-JSF-JSP-Pages</web-resource-name>
+      <url-pattern>/sucess.jsp</url-pattern>
+      <url-pattern>/report.jsp</url-pattern>
+      <url-pattern>/sucess-ativacao.jsp</url-pattern>
+      <http-method>GET</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Sem regras, apenas bloqueio acesso direto aos JSPs</description>
+    </auth-constraint>
+  </security-constraint>
+  <servlet>
+    <description></description>
+    <display-name>Autentica</display-name>
+    <servlet-name>Autentica</servlet-name>
+    <servlet-class>com.cadastro.servelets.Autentica</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Autentica</servlet-name>
+    <url-pattern>/autentica</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RecuperaSenha</display-name>
+    <servlet-name>RecuperaSenha</servlet-name>
+    <servlet-class>com.cadastro.servelets.RecuperaSenha</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RecuperaSenha</servlet-name>
+    <url-pattern>/restore</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Erro</display-name>
+    <servlet-name>Erro</servlet-name>
+    <servlet-class>com.cadastro.logica.Erro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Erro</servlet-name>
+    <url-pattern>/erro</url-pattern>
+  </servlet-mapping>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error.jsp</location>
+</error-page>
+<error-page>
+    <exception-type>java.lang.NullPointerException</exception-type>
+    <location>/error.jsp</location>
+</error-page>
 
-	<security-constraint>
-		<display-name>Prevenindo acesso direto</display-name>
-		<web-resource-collection>
-			<web-resource-name>Raw-JSF-JSP-Pages</web-resource-name>
-			<url-pattern>/sucess.jsp</url-pattern>
-			<url-pattern>/report.jsp</url-pattern>
-			<url-pattern>/sucess-ativacao.jsp</url-pattern>
-			<http-method>GET</http-method>
-		</web-resource-collection>
-		<auth-constraint>
-			<description>Sem regras, apenas bloqueio acesso direto aos JSPs</description>
-		</auth-constraint>
-	</security-constraint>
+<!--   JSF -->
+<servlet>
+  <servlet-name>FacesServlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+  <servlet-name>FacesServlet</servlet-name>
+  <url-pattern>*.xhtml</url-pattern>
+</servlet-mapping>
+
+<!--   Tema primefaces -->
+<context-param>
+<param-name>primefaces.THEME</param-name>
+<param-value>bootstrap</param-value>
+</context-param>
 
 </web-app>

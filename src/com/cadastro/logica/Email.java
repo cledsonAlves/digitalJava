@@ -16,6 +16,7 @@ import com.cadastro.objetos.Usuario;
 
 public class Email {
 	private ManipulaBanco mb;
+	private static final String url = "http://www.desagil.com.br:8080";
 	
 	
 	public Email(){
@@ -39,7 +40,7 @@ public class Email {
 		
 	
 		// conta de e-mail para autenticação
-		email.setAuthenticator( new DefaultAuthenticator( "sistemacadastro0@gmail.com" ,  "sistema@2014" ) );
+		email.setAuthenticator( new DefaultAuthenticator( "cledson199@gmail.com" ,  "ti@kelma.com.br" ) );
 
 		try { 
 			  
@@ -52,8 +53,8 @@ public class Email {
 			    StringBuilder builder = new StringBuilder();
 			    builder.append("<p><h1><b><center><font color ='#89A0AD'>Bem-Vindo, "+usuario.getNome()+",</font></b></h1></p>");
 			    builder.append("<p><h1><center>Agradecemos o seu interesse em se cadastrar no <br>Banco de Talentos RecruIT.</b><br></p>");
-			    builder.append("<p><h1><b><center>Você esta a um passo do sucesso profissional :</b><br>Para confirmar o seu cadastro, <a href='http://www.desagil.com.br:8080/Cadastro/confirma-cadastro?token="+usuario.getToken()+"'><u>Clique aqui.</u></a></b></h1></p>");	    
-			    builder.append("<p>Se você não solicitou o cadastramento, <a href='http://www.desagil.com.br:8080/Cadastro/Report?token="+usuario.getToken()+"'><u>Clique aqui.</u></a>  :</p>");	    
+			    builder.append("<p><h1><b><center>Você esta a um passo do sucesso profissional :</b><br>Para confirmar o seu cadastro, <a href='"+url+"/Cadastro/confirma-cadastro?token="+usuario.getToken()+"'><u>Clique aqui.</u></a></b></h1></p>");	    
+			    builder.append("<p>Se você não solicitou o cadastramento, <a href='"+url+"/Cadastro/Report?token="+usuario.getToken()+"'><u>Clique aqui.</u></a>  :</p>");	    
 			    builder.append("<p><h3><center>Até mais!<br><font color='#89A0AD'>Equipe Recruit.</font></b></h3></p>");		 
 			    builder.append("<img src=\"http://www.desagil.com.br/img/email.png\">");
 			    
@@ -80,7 +81,7 @@ public class Email {
 		
 	
 		// conta de e-mail para autenticação
-		email.setAuthenticator( new DefaultAuthenticator( "sistemacadastro0@gmail.com" ,  "sistema@2014" ) );
+		email.setAuthenticator( new DefaultAuthenticator( "cledson199@gmail.com" ,  "ti@kelma.com.br" ) );
 		try { 
 			  
             
@@ -108,6 +109,51 @@ public class Email {
 		e.printStackTrace();
 	}
 
+		
+	}
+	// Envia recuperação de senha
+	public static void enviaDados(Usuario usuario){
+		HtmlEmail email = new HtmlEmail();
+		email.setSSLOnConnect(true);
+		email.setHostName( "smtp.gmail.com" );
+		email.setSslSmtpPort( "465" );
+		email.setStartTLSRequired(true);
+		email.setSSLOnConnect(true);
+		
+	
+		// conta de e-mail para autenticação
+		email.setAuthenticator( new DefaultAuthenticator( "cledson199@gmail.com" ,  "ti@kelma.com.br" ) );
+		try { 
+			  
+            
+		    email.setFrom( "clsddd@hotmail.com");
+		    email.setDebug(true);
+		    email.setSubject( "Recruit : Recuperação de Senha ");
+		    
+		    //mensagem
+		    StringBuilder builder = new StringBuilder();
+		    builder.append("<p><h1><b><center><font color ='#89A0AD'>Sr(a) , "+usuario.getNome()+" "+usuario.getSobrenome() +",</font></b></h1></p>");
+		    builder.append("<p><h1><center>Para prosseguir com a <br>Recuperação de Senha acesse o link abaixo.</p>");
+		    builder.append("<p><center> <a href='"+url+"/Cadastro/restore?token="+usuario.getToken()+"'><u>Clique aqui para continuar com o processo de recuperação de senha</u></a></p>");	    
+		    builder.append("<p>É muito importante você prosseguir com a recuperação de senha, pois o código de <br>" +
+		    		"acesso irá expirar em 30 minutos da data de abertura de solicitação. <br>" +
+		    		"Agradecemos o seu interesse em manter seu cadastro atualizado conosco =)</p>");	    
+		    builder.append("<p><h3><center>Até mais!<br><font color='#89A0AD'>Equipe Recruit.</font></b></h3></p>");		 
+		    builder.append("<img src=\"http://www.desagil.com.br/img/email.png\">");
+		    
+		    //envia os dados para o usuario
+		    email.addTo(usuario.getEmail());
+		    
+		    
+		    email.setHtmlMsg( builder.toString() );
+		    
+		    email.send();
+
+	} catch (EmailException e) {
+		System.out.println("Não foi possível enviar a mensagem!");
+		e.printStackTrace();
+	}
+		
 		
 	}
 	

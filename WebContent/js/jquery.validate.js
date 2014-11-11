@@ -306,18 +306,18 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: "Este campo é obrigatório.",
-		remote: "Este campo é obrigatório.",
-		email: "Entre com um e-mail válido",
+		required: "Este campo ï¿½ obrigatï¿½rio.",
+		remote: "Este campo ï¿½ obrigatï¿½rio.",
+		email: "Entre com um e-mail vï¿½lido",
 		url: "Please enter a valid URL.",
 		date: "Please enter a valid date.",
 		dateISO: "Please enter a valid date ( ISO ).",
 		number: "Please enter a valid number.",
 		digits: "Please enter only digits.",
 		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Os valores informados não conferem.",
-		maxlength: $.validator.format( "Informe no maxímo {0} caracteres." ),
-		minlength: $.validator.format( "Informe no mínimo {0} caracteres." ),
+		equalTo: "Os valores informados nï¿½o conferem.",
+		maxlength: $.validator.format( "Informe no maxï¿½mo {0} caracteres." ),
+		minlength: $.validator.format( "Informe no mï¿½nimo {0} caracteres." ),
 		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
 		range: $.validator.format( "Please enter a value between {0} and {1}." ),
 		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
@@ -1229,7 +1229,6 @@ $.extend( $.validator, {
 		// http://jqueryvalidation.org/equalTo-method/
 		equalTo: function( value, element, param ) {
 			// bind to the blur event of the target in order to revalidate whenever the target field is updated
-			// TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
 			var target = $( param );
 			if ( this.settings.onfocusout ) {
 				target.unbind( ".validate-equalTo" ).bind( "blur.validate-equalTo", function() {

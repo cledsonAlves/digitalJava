@@ -1,42 +1,156 @@
-//	Variável que receberá o objeto XMLHttpRequest
-var req;
-
-function validarDados(campo, valor) {
-
-	// Verificar o Browser
-	// Firefox, Google Chrorme, Safari e outros
-	if(window.XMLHttpRequest) {
-		req	= new XMLHttpRequest();
+//  Fun��o para remover / incluir campos
+$(function() {
+	function removeCampo() {
+		$(".removerCampo").unbind("click");
+		$(".removerCampo").bind("click", function() {
+			i = 0;
+			$(".telefones p.campoTelefone").each(function() {
+				i++;
+			});
+			if (i > 1) {
+				$(this).parent().remove();
+			}
+		});
 	}
-	// Internet Explorer
-	else if(window.ActiveXObject) {
-		req = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	
-	// Aqui vão os valores, caso haja mais de um, e o nome do campo que pediu a requisição.
-	var url = "./Formulario?campo=email&valor="+valor;
-	
-	// Chamada do método open para processar a requisição
-	req.open("Get", url, true); 
-    // Quando o objeto recebe o retorno, chamamos a função callback();
-	req.onreadystatechange = function() {
-		
-		// Exibindo mensagem de carregar
-		if(req.readyState == 1) {
-			document.getElementById('nome').innerHTML = '<font color="gray">Verificando...</font>';
-		}
-	
-		// Verifica se o Ajax reali zou todas as operações corretamente (essencial)
-		if(req.readyState == 4 && req.status == 200) {
-	        // Resposta retornada pelo executor.php
-			var resposta = req.responseText;
-			
-			// Abaixo colocamos a resposta na div do campo que fez a requisição
-			document.getElementById('nome').innerHTML = "teste";
-		}
-	
-	};
+	removeCampo();
+	$(".adicionarCampo").click(function() {
+		novoCampo = $(".telefones p.campoTelefone:first").clone();
+		novoCampo.find("input").val("");
+		novoCampo.insertAfter(".telefones p.campoTelefone:last");
+		removeCampo();
+	});
+});
 
-	req.send(null);
-	
-}
+//./
+
+$(function() {
+	$('.input').tooltip({
+		placement : 'left',
+		title : 'Required field'
+	});
+});
+
+// Fun��o para validar inputs
+$(document)
+		.ready(
+				function() {
+					$(
+							'.input-group input[required], .input-group textarea[required], .input-group select[required]')
+							.on(
+									'keyup change',
+									function() {
+										var $form = $(this).closest('form'), $group = $(
+												this).closest('.input-group'), $addon = $group
+												.find('.input-group-addon'), $icon = $addon
+												.find('span'), state = false;
+
+										if (!$group.data('validate')) {
+											state = $(this).val() ? true
+													: false;
+										} else if ($group.data('validate') == "email") {
+											state = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+													.test($(this).val())
+										} else if ($group.data('validate') == 'phone') {
+											state = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/
+													.test($(this).val())
+										} else if ($group.data('validate') == "length") {
+											state = $(this).val().length >= $group
+													.data('length') ? true
+													: false;
+										} else if ($group.data('validate') == "number") {
+											state = !isNaN(parseFloat($(this)
+													.val()))
+													&& isFinite($(this).val());
+										}
+
+										if (state) {
+											$addon.removeClass('danger');
+											$addon.addClass('success');
+											$icon.attr('class',
+													'glyphicon glyphicon-ok');
+										} else {
+											$addon.removeClass('success');
+											$addon.addClass('danger');
+											$icon.attr('class',
+													'glyphicon glyphicon-');
+										}
+
+										// desabilita o submit
+										/***************************************
+										 * if
+										 * ($form.find('.input-group-addon.danger').length ==
+										 * 0) {
+										 * $form.find('[type="submit"]').prop('disabled',
+										 * false); }else{
+										 * $form.find('[type="submit"]').prop('disabled',
+										 * true); }
+										 **************************************/
+									});
+
+					$(
+							'.input-group input[required], .input-group textarea[required], .input-group select[required]')
+							.trigger('change');
+
+				});
+
+(function($) {
+	$(function() {
+
+		var addFormGroup = function(event) {
+			event.preventDefault();
+
+			var $formGroup = $(this).closest('.form-group');
+			var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+			var $formGroupClone = $formGroup.clone();
+
+			$(this).toggleClass('btn-success btn-add btn-danger btn-remove')
+					.html('�');
+
+			$formGroupClone.find('input').val('');
+			$formGroupClone.find('.concept').text('Phone');
+			$formGroupClone.insertAfter($formGroup);
+
+			var $lastFormGroupLast = $multipleFormGroup
+					.find('.form-group:last');
+			if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+				$lastFormGroupLast.find('.btn-add').attr('disabled', true);
+			}
+		};
+
+		var removeFormGroup = function(event) {
+			event.preventDefault();
+
+			var $formGroup = $(this).closest('.form-group');
+			var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+			var $lastFormGroupLast = $multipleFormGroup
+					.find('.form-group:last');
+			if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+				$lastFormGroupLast.find('.btn-add').attr('disabled', false);
+			}
+
+			$formGroup.remove();
+		};
+
+		var selectFormGroup = function(event) {
+			event.preventDefault();
+
+			var $selectGroup = $(this).closest('.input-group-select');
+			var param = $(this).attr("href").replace("#", "");
+			var concept = $(this).text();
+
+			$selectGroup.find('.concept').text(concept);
+			$selectGroup.find('.input-group-select-val').val(param);
+
+		}
+
+		var countFormGroup = function($form) {
+			return $form.find('.form-group').length;
+		};
+
+		$(document).on('click', '.btn-add', addFormGroup);
+		$(document).on('click', '.btn-remove', removeFormGroup);
+		$(document).on('click', '.dropdown-menu a', selectFormGroup);
+
+	});
+})(jQuery);

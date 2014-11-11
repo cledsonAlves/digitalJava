@@ -1,0 +1,583 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Recrutamento Digital</title>
+	<link rel="stylesheet" type="text/css" href="css/cv.css" />
+
+</h:head>
+
+<h:body style="margin: 0px">
+	<!-- Navbar -->
+	<div class="navbar-default navbar-fixed-top">
+		<div class="container">
+			<a href="#"><img src="img/logo.png" alt="Digital"></img></a> 
+				
+				<p:commandButton value="Sair" action="#{candidato.logout}" style="float: right; margin-top: 15px"/>
+				
+				
+		</div>
+	</div>
+	<div class="clearfix"></div>
+
+	<div class="clearfix"></div>
+
+	<div class="gradiente_fundo">
+		<div class="container">
+			<div class="conteudoCadastroCV">
+
+				<!--  form -->
+				<h:form id="formCv" acceptcharset="ISO-8859-1" lang="pt">
+					
+
+					<p:panel id="dados" header="Dados">
+						<h:panelGrid columns="2" cellpadding="5">
+
+							<h:outputText value="Nome*" />
+							<p:inputText value="#{candidato.curriculo.nome}" id="nome"
+								label="Nome" size="40"  />
+
+							<h:outputText value="Sobrenome*" />
+							<p:inputText id="sobrenome"
+								value="#{candidato.curriculo.sobrenome}" label="Sobrenome"
+								size="40" />
+
+							<h:outputText value="CPF*" />
+							<p:inputMask mask="999.999.999-99" id="cpf"
+								value="#{candidato.curriculo.cpf}" label="CPF" size="13" />
+
+							<h:outputText value="Data de Nascimento*" />
+							<p:inputMask mask="99/99/9999" id="dataNascimento"
+								value="#{candidato.curriculo.dataNascimento}"
+								label="Data de Nascimento" size="10" />
+
+							<h:outputText value="Sexo*" />
+							<p:selectOneRadio id="sexo" label="Sexo"
+								value="#{candidato.curriculo.sexo}">
+								<f:selectItem itemLabel="Masculino" itemValue="M" />
+								<f:selectItem itemLabel="Feminino" itemValue="F" />
+							</p:selectOneRadio>
+
+							<h:outputText value="Estado Civil*" />
+							<p:selectOneMenu label="Estado Civil" id="estadoCivil"
+								value="#{candidato.curriculo.estadoCivil}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Solteiro(a)" itemValue="solteiro" />
+								<f:selectItem itemLabel="Casado(a)" itemValue="casado" />
+								<f:selectItem itemLabel="Divorciado(a)" itemValue="divorciado" />
+								<f:selectItem itemLabel="Viúvo(a)" itemValue="viuvo" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Nacionalidade" id="nacionalidade" />
+							<p:inputText label="Nacionalidade"
+								value="#{candidato.curriculo.nacionalidade}" size="20"  />
+
+							<h:outputText value="Email:" />
+							<p:inputText label="Email" id="email" disable="true"
+								readonly="true" value="#{candidato.curriculo.email}" size="20" />
+
+							<h:outputText value="Foto:" id="foto" />
+							<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+								skinSimple="true" />
+						</h:panelGrid>
+
+						<p:panel id="telefones" header="Telefones"
+							style="margin-bottom:20px">
+							<h:panelGrid columns="8" cellpadding="10">
+								<h:outputText value="DDD*" />
+								<p:inputText label="DDD" size="1"
+									value="#{candidato.telefone.ddd}" />
+
+								<h:outputText value="Número*" />
+								<p:inputText  label="Número de Telefone" size="10"
+									value="#{candidato.telefone.numero}" />
+
+								<h:outputText value="Tipo*" />
+								<p:selectOneMenu label="Tipo de Telefone"
+									value="#{candidato.telefone.tipo}">
+									<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+									<f:selectItem itemLabel="Fixo" itemValue="Fixo" />
+									<f:selectItem itemLabel="Celular" itemValue="Celular" />
+								</p:selectOneMenu>
+								<p:commandButton icon="ui-icon-plus" id="addTelefone"
+									disabled="false" action="#{candidato.addTelefone}"
+									update="tableTelefones">
+									
+									<p:ajax update="telefones" resetValues="true"/>
+									</p:commandButton>
+							</h:panelGrid>
+
+							<p:dataTable id="tableTelefones" var="telefone"
+								value="#{candidato.telefones}" emptyMessage="">
+								<p:column style="width:16px">
+									<p:rowToggler />
+								</p:column>
+								<p:column style="width:38px" headerText="DDD">
+									<h:outputText value="#{telefone.ddd}" />
+								</p:column>
+								<p:column headerText="Numero">
+									<h:outputText value="#{telefone.numero}" />
+								</p:column>
+								<p:column headerText="Tipo">
+									<h:outputText value="#{telefone.tipo}" />
+								</p:column>
+								<p:column style="width:32px">
+									<p:commandButton icon="ui-icon-close" id="delTelefone"
+										actionListener="#{candidato.removeTelefone(telefone)}"
+										update="tableTelefones" />
+								</p:column>
+
+								<p:rowExpansion>
+									<h:panelGrid columns="2" columnClasses="label,value">
+										<h:outputText value="Tipo:" />
+										<p:inputText value="#{telefone.tipo}" />
+
+										<h:outputText value="DDD: " />
+										<p:inputText value="#{telefone.ddd}" size="1" />
+
+										<h:outputText value="Número: " />
+										<p:inputText value="#{telefone.numero}" size="10" />
+
+										<p:commandButton icon="ui-icon-check" id="editTelefone"
+											disabled="false"
+											action="#{candidato.editarTelefone(telefone)}"
+											update="tableTelefones" />
+									</h:panelGrid>
+								</p:rowExpansion>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+					<p:panel header="Endereço">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="CEP*" />
+							<p:inputMask id="cep" value="#{candidato.endereco.cep}"
+								label="CEP" size="10" mask="99999-999" />
+
+							<h:outputText value="Endereço*" />
+							<p:inputText id="endereco" value="#{candidato.endereco.endereco}"
+								label="Endereço" size="40" />
+
+							<h:outputText value="Número*" />
+							<p:inputMask mask="9?9999" id="numero"
+								value="#{candidato.endereco.numero}" label="Número" size="3" />
+
+							<h:outputText value="Complemento" />
+							<p:inputText label="Complemento" id="complemento"
+								value="#{candidato.endereco.complemento}" size="20" />
+
+							<h:outputText value="Bairro*" />
+							<p:inputText label="Bairro" id="bairro"
+								value="#{candidato.endereco.bairro}" size="20" />
+
+							<h:outputText value="Cidade" />
+							<p:inputText label="Cidade" size="25" id="cidade"
+								value="#{candidato.endereco.cidade}" />
+
+							<h:outputText value="UF*" />
+							<p:selectOneMenu label="UF" id="estado"
+								value="#{candidato.endereco.uf}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Acre" itemValue="AC" />
+								<f:selectItem itemLabel="Alagoas" itemValue="AL" />
+								<f:selectItem itemLabel="Amapá" itemValue="AP" />
+								<f:selectItem itemLabel="Amazonas" itemValue="AM" />
+								<f:selectItem itemLabel="Bahia" itemValue="BA" />
+								<f:selectItem itemLabel="Ceará" itemValue="CE" />
+								<f:selectItem itemLabel="Distrito Federal" itemValue="DF" />
+								<f:selectItem itemLabel="Espírito Santo" itemValue="ES" />
+								<f:selectItem itemLabel="Goiás" itemValue="GO" />
+								<f:selectItem itemLabel="Maranhão" itemValue="MA" />
+								<f:selectItem itemLabel="Mato Grosso" itemValue="MT" />
+								<f:selectItem itemLabel="Mato Grosso do Sul" itemValue="MS" />
+								<f:selectItem itemLabel="Minas Gerais" itemValue="MG" />
+								<f:selectItem itemLabel="Pará" itemValue="PA" />
+								<f:selectItem itemLabel="Paraíba" itemValue="PB" />
+								<f:selectItem itemLabel="Paraná" itemValue="PR" />
+								<f:selectItem itemLabel="Pernambuco" itemValue="PE" />
+								<f:selectItem itemLabel="Piauí" itemValue="PI" />
+								<f:selectItem itemLabel="Rio de Janeiro" itemValue="RJ" />
+								<f:selectItem itemLabel="Rio Grande do Norte" itemValue="RN" />
+								<f:selectItem itemLabel="Rio Grande do Sul" itemValue="RS" />
+								<f:selectItem itemLabel="Rondônia" itemValue="RO" />
+								<f:selectItem itemLabel="Roraima" itemValue="RR" />
+								<f:selectItem itemLabel="Santa Catarina" itemValue="SC" />
+								<f:selectItem itemLabel="São Paulo" itemValue="SP" />
+								<f:selectItem itemLabel="Sergipe" itemValue="SE" />
+								<f:selectItem itemLabel="Tocantins" itemValue="TO" />
+							</p:selectOneMenu>
+
+							<h:outputText value="País" />
+							<p:inputText label="País" size="25" id="pais"
+								value="#{candidato.endereco.pais}" />
+						</h:panelGrid>
+					</p:panel>
+					<p:panel id="formacoes" header="Formações Acadêmicas">
+						<p:panel id="formacao" header="Formação"
+							style="margin-bottom:20px">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Instituição" />
+								<p:inputText label="Istituicao" size="20"
+									value="#{candidato.formacao.instituicao}" />
+
+								<h:outputText value="Tipo de Formação" />
+								<p:selectOneMenu label="Tipo de Formação"
+									value="#{candidato.formacao.tipo}">
+									<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+									<f:selectItem itemLabel="2º Grau Incompleto"
+										itemValue="2º Grau Incompleto" />
+									<f:selectItem itemLabel="2º Grau Completo"
+										itemValue="2º Grau Completo" />
+								</p:selectOneMenu>
+
+								<h:outputText value="Curso" />
+								<p:inputText label="Curso" size="20"
+									value="#{candidato.formacao.curso}" />
+
+								<h:outputText value="Início" />
+								<p:inputMask mask="99/9999" label="Mês/Ano de Início" size="5"
+									value="#{candidato.formacao.dtInicio}" />
+
+								<h:outputText value="Conclusão" />
+								<p:inputMask mask="99/9999" label="Mês/Ano de Conclusão"
+									size="5" value="#{candidato.formacao.dtFim}" />
+
+								<p:commandButton icon="ui-icon-plus" id="addFormacao"
+									disabled="false" action="#{candidato.addFormacao}"
+									update="tableFormacoes" >
+									
+									</p:commandButton>
+							</h:panelGrid>
+
+							<p:dataTable id="tableFormacoes" var="formacao" emptyMessage=""
+								value="#{candidato.formacoes}">
+								<p:messages id="messages" showDetail="true" autoUpdate="true"
+									closable="true" />
+								<p:column style="width:16px">
+									<p:rowToggler />
+								</p:column>
+								<p:column headerText="Instituição">
+									<h:outputText value="#{formacao.instituicao}" />
+								</p:column>
+								<p:column headerText="Tipo de Formação">
+									<h:outputText value="#{formacao.tipo}" />
+								</p:column>
+
+								<p:column headerText="Curso">
+									<h:outputText value="#{formacao.curso}" />
+								</p:column>
+
+								<p:column headerText="Inicio">
+									<h:outputText value="#{formacao.dtInicio}" />
+								</p:column>
+
+								<p:column headerText="Conclusão">
+									<h:outputText value="#{formacao.dtFim}" />
+								</p:column>
+								<p:column style="width:32px">
+									<p:commandButton icon="ui-icon-close" id="delFormacao"
+										actionListener="#{candidato.removeFormacao(formacao)}"
+										update="tableFormacoes" />
+								</p:column>
+
+								<p:rowExpansion>
+									<p:panelGrid columns="2" columnClasses="label,value">
+										<h:outputText value="Instituição" />
+										<p:inputText label="Istituicao" size="20"
+											value="#{formacao.instituicao}" />
+
+										<h:outputText value="Tipo de Formação" />
+										<p:selectOneMenu label="Tipo de Formação"
+											value="#{formacao.tipo}">
+											<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+											<f:selectItem itemLabel="2º Grau Incompleto"
+												itemValue="2º Grau Incompleto" />
+											<f:selectItem itemLabel="2º Grau Completo"
+												itemValue="2º Grau Completo" />
+										</p:selectOneMenu>
+
+										<h:outputText value="Curso" />
+										<p:inputText label="Curso" size="20" value="#{formacao.curso}" />
+
+										<h:outputText value="Início" />
+										<p:inputMask mask="99/9999" label="Mês/Ano de Início" size="5"
+											value="#{formacao.dtInicio}" />
+
+										<h:outputText value="Conclusão" />
+										<p:inputMask mask="99/9999" label="Mês/Ano de Conclusão"
+											size="5" value="#{formacao.dtFim}" />
+
+										<p:commandButton icon="ui-icon-check" id="editFormacao"
+											disabled="false"
+											action="#{candidato.editarFormacao(formacao)}"
+											update="tableFormacoes" />
+									</p:panelGrid>
+								</p:rowExpansion>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+
+					<p:panel id="experiencias" header="Experiências Profissionais">
+						<p:panel id="experiencia" header="Experiência">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Empresa" />
+								<p:inputText label="Empresa" size="40"
+									value="#{candidato.experiencia.empresa}" />
+
+								<h:outputText value="Local" />
+								<p:inputText label="Local" size="40"
+									value="#{candidato.experiencia.local}" />
+
+								<h:outputText value="Cargo" />
+								<p:inputText label="Cargo" size="30"
+									value="#{candidato.experiencia.cargo}" />
+
+								<h:outputText value="Início" />
+								<p:inputMask mask="99/9999" label="Mês/Ano de Início" size="5"
+									value="#{candidato.experiencia.dtInicio}" />
+
+								<h:outputText value="Conclusão" />
+								<p:inputMask mask="99/9999" label="Mês/Ano de Conclusão"
+									size="5" value="#{candidato.experiencia.dtFim}" />
+
+								<h:outputText value="Observações" />
+								<p:inputTextarea rows="5" cols="100"
+									value="#{candidato.experiencia.observacoes}" />
+								<p:commandButton icon="ui-icon-plus" id="addExperiencia"
+									disabled="false" action="#{candidato.addExperiencia}"
+									update="tableExperiencias" />
+							</h:panelGrid>
+
+							<p:dataTable emptyMessage="" id="tableExperiencias"
+								var="experiencia" value="#{candidato.experiencias}">
+								<p:column style="width:16px">
+									<p:rowToggler />
+								</p:column>
+								<p:column headerText="Empresa">
+									<h:outputText value="#{experiencia.empresa}" />
+								</p:column>
+
+								<p:column headerText="Local">
+									<h:outputText value="#{experiencia.local}" />
+								</p:column>
+
+								<p:column headerText="Cargo">
+									<h:outputText value="#{experiencia.cargo}" />
+								</p:column>
+
+								<p:column headerText="Inicio">
+									<h:outputText value="#{experiencia.dtInicio}" />
+								</p:column>
+								<p:column headerText="Saída">
+									<h:outputText value="#{experiencia.dtFim}" />
+								</p:column>
+								<p:column style="width:32px">
+									<p:commandButton icon="ui-icon-close" id="delExperiencia"
+										actionListener="#{candidato.removeExperiencia(experiencia)}"
+										update="tableExperiencias" />
+								</p:column>
+
+								<p:rowExpansion>
+									<p:panelGrid columns="2">
+										<h:outputText value="Empresa" size="15" />
+										<p:inputText label="Empresa" value="#{experiencia.empresa}" />
+
+										<h:outputText value="Local" style="width:15px" />
+										<p:inputText label="Local" value="#{experiencia.local}" />
+
+										<h:outputText value="Cargo" style="width:15px" />
+										<p:inputText label="Cargo" value="#{experiencia.cargo}" />
+
+										<h:outputText value="Início" style="width:15px" />
+										<p:inputMask mask="99/9999" label="Mês/Ano de Início"
+											value="#{experiencia.dtInicio}" />
+
+										<h:outputText value="Conclusão" style="width:15px" />
+										<p:inputMask mask="99/9999" label="Mês/Ano de Conclusão"
+											value="#{experiencia.dtFim}" />
+
+										<h:outputText value="Observações" style="width:15px" />
+										<p:inputTextarea rows="5" cols="50"
+											value="#{experiencia.observacoes}" />
+
+										<p:commandButton icon="ui-icon-check" id="editExperienca"
+											disabled="false"
+											action="#{candidato.editarExperiencia(experiencia)}"
+											update="tableExperiencias" />
+									</p:panelGrid>
+								</p:rowExpansion>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+
+					<p:panel id="cursos" header="Cursos Extracurriculares">
+						<p:panel id="curso" header="Curso">
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="Nome do Curso" />
+								<p:inputText label="Nome do Curso" size="40"
+									value="#{candidato.curso.nome}" />
+
+								<h:outputText value="Grau de Conhecimento" />
+								<p:inputText label="Grau de Conhecimento" size="40"
+									value="#{candidato.curso.grauConhecimento}" />
+
+								<f:facet name="footer">
+									<p:commandButton icon="ui-icon-plus" id="addCurso"
+										action="#{candidato.addCurso}" update="tableCursos"  />
+								</f:facet>
+							</h:panelGrid>
+
+							<p:dataTable id="tableCursos" var="curso" emptyMessage=""
+								value="#{candidato.cursos}">
+								<p:column style="width:16px">
+									<p:rowToggler />
+								</p:column>
+								<p:column headerText="Nome do Curso">
+									<h:outputText value="#{curso.nome}" />
+								</p:column>
+
+								<p:column headerText="Grau de Conhecimento">
+									<h:outputText value="#{curso.grauConhecimento}" />
+								</p:column>
+								<p:column style="width:32px">
+									<p:commandButton icon="ui-icon-close" id="delCurso"
+										actionListener="#{candidato.removeCurso(curso)}"
+										update="tableCursos" />
+								</p:column>
+
+								<p:rowExpansion>
+									<p:panelGrid columns="2" columnClasses="label,value">
+										<h:outputText value="Nome do Curso" />
+										<p:inputText label="Nome do Curso" size="40"
+											value="#{curso.nome}" />
+
+										<h:outputText value="Grau de Conhecimento" />
+										<p:inputText label="Grau de Conhecimento" size="40"
+											value="#{curso.grauConhecimento}" />
+
+										<p:commandButton icon="ui-icon-check" id="editCurso"
+											disabled="false" action="#{candidato.editarCurso(curso)}"
+											update="tableCursos" />
+									</p:panelGrid>
+								</p:rowExpansion>
+							</p:dataTable>
+						</p:panel>
+					</p:panel>
+
+					<p:panel id="outrosDados" header="Dados Adicionais">
+						<h:panelGrid columns="2" cellpadding="5">
+
+							<h:outputLabel value="Habilitação para Dirigir" />
+							<p:selectManyCheckbox
+								value="#{candidato.dadosAdicionais.habilitacoes}">
+								<f:selectItem itemLabel="A" itemValue="A" />
+								<f:selectItem itemLabel="B" itemValue="B" />
+								<f:selectItem itemLabel="C" itemValue="C" />
+								<f:selectItem itemLabel="D" itemValue="D" />
+								<f:selectItem itemLabel="E" itemValue="E" />
+							</p:selectManyCheckbox>
+
+							<h:outputLabel value="Veículo Próprio" />
+							<p:selectManyCheckbox
+								value="#{candidato.dadosAdicionais.veiculos}">
+								<f:selectItem itemLabel="Caminhão" itemValue="CM" />
+								<f:selectItem itemLabel="Carro Particular" itemValue="CP" />
+								<f:selectItem itemLabel="Moto" itemValue="MT" />
+								<f:selectItem itemLabel="Outro" itemValue="OV" />
+							</p:selectManyCheckbox>
+
+							<h:outputLabel value="Disponibilidade para Viajar" />
+							<p:selectOneRadio
+								value="#{candidato.dadosAdicionais.disponibilidadeViagem}">
+								<f:selectItem itemLabel="Sim" itemValue="S" />
+								<f:selectItem itemLabel="Não" itemValue="N" />
+							</p:selectOneRadio>
+
+							<h:outputLabel value="Disponibilidade para Mudar de Residência" />
+							<p:selectOneRadio
+								value="#{candidato.dadosAdicionais.disponibilidadeMudanca}">
+								<f:selectItem itemLabel="Sim" itemValue="S" />
+								<f:selectItem itemLabel="Não" itemValue="N" />
+							</p:selectOneRadio>
+						</h:panelGrid>
+					</p:panel>
+
+					<p:panel id="objetivos" header="Objetivos Profissionais">
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="Jornada de Trabalho" />
+							<p:selectOneMenu label="Jornada de Trabalho"
+								value="#{candidato.objetivos.jornadaTrabalho}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Periodo Integral"
+									itemValue="Período Integral" />
+								<f:selectItem itemLabel="1/2 Período" itemValue="1/2 Período" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Contrato de Trabalho" />
+							<p:selectOneMenu label="Contrato de Trabalho"
+								value="#{candidato.objetivos.tipoContrato}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Efetivo - CLT"
+									itemValue="Efetivo - CLT" />
+								<f:selectItem itemLabel="Freelancer" itemValue="Freelancer" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Nível Hierárquico Mínimo" />
+							<p:selectOneMenu label="Nível Hierárquico Mínimo"
+								value="#{candidato.objetivos.nivelHierarquicoMin}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Operacional" itemValue="Operacional" />
+								<f:selectItem itemLabel="Analista" itemValue="Analista" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Nível Hierárquico Máximo" />
+							<p:selectOneMenu label="Nível Hierárquico Máximo"
+								value="#{candidato.objetivos.nivelHierarquicoMax}">
+								<f:selectItem itemLabel="Selecione uma opção" itemValue="" />
+								<f:selectItem itemLabel="Operacional" itemValue="operacional" />
+								<f:selectItem itemLabel="Analista" itemValue="analista" />
+							</p:selectOneMenu>
+
+							<h:outputText value="Pretensão Salarial" />
+							<p:inputMask label="Pretensão Salarial" size="15"
+								value="#{candidato.objetivos.pretensaoSalarial}"
+								converterId="javax.faces.Double" />
+						</h:panelGrid>
+					</p:panel>
+
+					<h:panelGrid width="100%" style="text-align:left">
+ 
+					
+						<p:commandButton value="Salvar Currículo"  
+							actionListener="#{candidato.salvarCurriculo}">
+							<p:confirm header="Salvar" message="Deseja Salvar o Curriculo ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="Sim" type="button"  
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+
+					</h:panelGrid>
+					
+					<p:messages id="messages" />
+
+				</h:form>
+				<!-- ./ form -->
+				<!-- RODAPÉ (BANNER)-->
+
+
+
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>

@@ -1,6 +1,8 @@
 package com.cadastro.objetos;
 
 
+
+
 public class Usuario {
 	private String nome;
 	private String sobrenome;

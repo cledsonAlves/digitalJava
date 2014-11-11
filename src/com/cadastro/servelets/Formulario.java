@@ -53,19 +53,19 @@ public class Formulario extends HttpServlet {
 
 		else {
 
-			if (msg.equals("Erro! Nome informado não é um nome valido !")) {
+			if (msg.equals("Erro! Nome informado n&atilde;o &eacute; um nome valido !")) {
 				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.nome.focus();'>");
 
-			} else if (msg.equals("Erro! Sobrenome informado não é um nome valido !")) {
+			} else if (msg.equals("Erro! Sobrenome informado n&atilde;o &eacute; um nome valido !")) {
 				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.sobrenome.focus();'>");
 
-			} else if (msg.equals("Erro! O E-mail informado é inválido.")) {
+			} else if (msg.equals("Erro! O E-mail informado &eacute; inv&aacute;lido.")) {
 				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.email.focus();'>");
 
-			} else if (msg.equals("Erro. As senhas informadas não conferem !")) {
+			} else if (msg.equals("Erro. As senhas informadas n&atilde;o conferem !")) {
 				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.senha.focus();'>");
 
-			}else if (msg.equals("Erro! Este e-mail já esta cadastrado no sistema!")) {
+			}else if (msg.equals("Erro ! Este e-mail j&aacute; esta cadastrado no sistema!")) {
 				request.setAttribute("variavelRequestMsgErro","<body onLoad='document.form.email.focus();'>");
 
 			}
