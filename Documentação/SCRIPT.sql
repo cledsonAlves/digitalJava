@@ -1,0 +1,202 @@
+
+
+-- 10/28/14 22:02:30
+-- Model: New Model    Version: 1.0
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema cadastro
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `cadastro` DEFAULT CHARACTER SET utf8 ;
+USE `cadastro` ;
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`USUARIOS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`USUARIOS` (
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `NOME` VARCHAR(200) NOT NULL,
+  `SOBRENOME` VARCHAR(200) NOT NULL,
+  `SENHA` VARCHAR(50) NOT NULL,
+  `TOKEN` VARCHAR(50) NULL DEFAULT NULL,
+  `ATIVO` VARCHAR(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`EMAIL`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`CURRICULOS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`CURRICULOS` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `NOME` VARCHAR(200) NOT NULL,
+  `SOBRENOME` VARCHAR(200) NOT NULL,
+  `CPF` VARCHAR(45)  NULL,
+  `DT_NASCIMENTO` VARCHAR(10)  NULL,
+  `SEXO` VARCHAR(1)  NULL,
+  `ESTADO_CIVIL` VARCHAR(100)  NULL,
+  `NACIONALIDADE` VARCHAR(100) NULL,
+  `FOTO` VARCHAR(150) NULL,
+  INDEX `fk_CURRICULOS_USUARIOS1_idx` (`EMAIL` ASC),
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  CONSTRAINT `fk_CURRICULOS_USUARIOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`USUARIOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`TELEFONES`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`TELEFONES` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `TIPO` VARCHAR(45) NOT NULL,
+  `DDD` VARCHAR(3) NOT NULL,
+  `NUM_TELEFONE` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  INDEX `fk_TELEFONES_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_TELEFONES_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`ENDERECOS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`ENDERECOS` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `CEP` VARCHAR(10) NOT NULL,
+  `ENDERECO` VARCHAR(200) NOT NULL,
+  `NUMERO` INT NOT NULL,
+  `BAIRRO` VARCHAR(150) NOT NULL,
+  `CIDADE` VARCHAR(150) NOT NULL,
+  `UF` VARCHAR(100) NOT NULL,
+  `PAIS` VARCHAR(100) NOT NULL,
+  `COMPLEMENTO` VARCHAR(100) NULL,
+  PRIMARY KEY (`ID`),
+  INDEX `fk_ENDERECOS_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_ENDERECOS_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`CURSOS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`CURSOS` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `NOME` VARCHAR(100) NOT NULL,
+  `GRAU_DE_CONHECIMENTO` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  INDEX `fk_CURSOS_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_CURSOS_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`EXPERIENCIAS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`EXPERIENCIAS` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `EMPRESA` VARCHAR(200) NULL,
+  `LOCAL` VARCHAR(200) NULL,
+  `CARGO` VARCHAR(150) NULL,
+  `INICIO` VARCHAR(45) NULL,
+  `FIM` VARCHAR(45) NULL,
+  `OBSERVACOES` VARCHAR(300) NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  INDEX `fk_EXPERIENCIAS_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_EXPERIENCIAS_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`FORMACOES`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`FORMACOES` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `TIPO_FORMACAO` VARCHAR(100) NULL,
+  `INSTITUICAO` VARCHAR(200) NULL,
+  `CURSO` VARCHAR(200) NULL,
+  `INICIO` VARCHAR(45) NULL,
+  `FIM` VARCHAR(45) NULL,
+  `DESCRICAO` VARCHAR(300) NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  INDEX `fk_FORMACOES_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_FORMACOES_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`DADOS_ADICIONAIS`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cadastro`.`DADOS_ADICIONAIS` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(100) NOT NULL,
+  `HABILITACAO` VARCHAR(15) NULL,
+  `VEICULO` VARCHAR(15) NULL,
+  `DISP_VIAJAR` VARCHAR(1) NULL,
+  `DISP_RESID` VARCHAR(1) NULL,
+  `OBSERVACOES` VARCHAR(300) NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC),
+  INDEX `fk_DADOS_ADICIONAIS_CURRICULOS1_idx` (`EMAIL` ASC),
+  CONSTRAINT `fk_DADOS_ADICIONAIS_CURRICULOS1`
+    FOREIGN KEY (`EMAIL`)
+    REFERENCES `cadastro`.`CURRICULOS` (`EMAIL`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `cadastro`.`OBJETIVOS`
+-- -----------------------------------------------------
+CREATE TABLE `OBJETIVOS` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `EMAIL` varchar(100) NOT NULL,
+  `JORNADA` varchar(100) DEFAULT NULL,
+  `TP_CONTRATO` varchar(100) DEFAULT NULL,
+  `NIV_HIERARQ_MIN` varchar(100) DEFAULT NULL,
+  `NIV_HIERARQ_MAX` varchar(100) DEFAULT NULL,
+  `PRETENSAO_SALARIAL` VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (`ID`))
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
